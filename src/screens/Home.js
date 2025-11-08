@@ -1,61 +1,78 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
+import { db } from '../firebase/config';
+import Post from '../components/Post';
 
 export default class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      posts: [],
+      loading: true,
+    };
+  }
+
+  componentDidMount() {
+
+    db.collection('posts').orderBy("createdAt", "desc").onSnapshot(docs => {
+      let postsObtenidos = [];
+
+      docs.forEach(doc => {
+        postsObtenidos.push({
+          id: doc.id,
+          data: doc.data(),
+        });
+      });
+
+      this.setState({
+        posts: postsObtenidos,
+        loading: false,
+      }, () => {
+        console.log('Posts en estado:', this.state.posts);
+      });
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
+        <Text style={styles.title}>Últimos posteos</Text>
 
-        <View style={styles.header}>
-          <Text style={styles.title}>Bienvenido!!✨</Text>
-          <Text style={styles.subtitle}>Pantalla Home</Text>
-        </View>
-
-        <Pressable 
-          style={styles.bottomButton}
-          onPress={() => this.props.navigation.navigate('Register')}
-        >
-          <FontAwesome5 name="user-plus" size={20} color="#fff" style={{ marginRight: 8 }} />
-          <Text style={styles.buttonText}>Crear cuenta</Text>
-        </Pressable>
-
+        {this.state.loading ? (
+          <ActivityIndicator size="large" />
+        ) : this.state.posts.length === 0 ? (
+          <Text style={styles.empty}>Todavía no hay posts.</Text>
+        ) : (
+          <FlatList
+            data={this.state.posts}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <Post postData={item} />
+            )}
+          />
+        )}
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: { 
+  container:{
     flex: 1,
-    backgroundColor: "#F7EFE5",
-    justifyContent: "space-between",
+    backgroundColor: '#f9fafb',
+    padding: 20,
   },
-  header: {
-    paddingTop: 120,
-    alignItems: "center"
+  title:{
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#111827',
+    textAlign: 'center',
+    marginBottom: 16,
   },
-  title: {
-    fontSize: 28,
-    fontWeight: "700",
-    color: "#8C7A6B",
-    marginBottom: 8
-  },
-  subtitle: {
+  empty:{
+    textAlign: 'center',
+    color: '#6b7280',
     fontSize: 16,
-    color: "#B29E8C",
-    fontWeight: "500"
+    marginTop: 30,
   },
-  bottomButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#8C7A6B",
-    paddingVertical: 18,
-  },
-  buttonText: {
-    color: "#FFFFFF",
-    fontSize: 17,
-    fontWeight: "600"
-  }
 });

@@ -13,6 +13,13 @@ export default class Login extends Component {
     };
   }
 
+  componentDidMount(){
+    auth.onAuthStateChanged(user=>{
+      if (user != null) {
+        this.props.navigation.navigate('Home'); 
+      }
+    })
+  }
   login() {
     const {email, password} = this.state;
 
@@ -25,6 +32,9 @@ export default class Login extends Component {
         console.log(error);
         this.setState({ errorMessage: 'Credenciales inválidas o usuario inexistente' });
       });
+  }
+  register(){
+    this.props.navigation.navigate('Register'); 
   }
 
   render() {
@@ -58,6 +68,14 @@ export default class Login extends Component {
             <Text style={styles.error}>{this.state.errorMessage}</Text>
           ) : null}
         </View>
+
+        <Pressable 
+          style={styles.bottomButton}
+          onPress={() => this.register()}
+        >
+          <FontAwesome5 name="sign-in-alt" size={20} color="#fff" style={{ marginRight: 8 }} />
+          <Text style={styles.buttonText}>Registrarse</Text>
+        </Pressable>
 
         <Pressable 
           style={styles.bottomButton}

@@ -2,15 +2,23 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-export default class NewPost extends Component {
+export default class Comentario extends Component {
   render() {
     return (
       <View style={styles.container}>
 
         <View style={styles.header}>
           <Text style={styles.title}>Bienvenido!!✨</Text>
-          <Text style={styles.subtitle}>Pantalla Post</Text>
+          <Text style={styles.subtitle}>Pantalla profile</Text>
         </View>
+
+        <Pressable 
+          style={styles.bottomButton}
+          onPress={() => this.props.navigation.navigate('Register')}
+        >
+          <FontAwesome5 name="user-plus" size={20} color="#fff" style={{ marginRight: 8 }} />
+          <Text style={styles.buttonText}>Crear cuenta</Text>
+        </Pressable>
 
       </View>
     );
