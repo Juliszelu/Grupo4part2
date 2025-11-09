@@ -1,53 +1,116 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { Text, View, StyleSheet, FlatList, Pressable } from 'react-native';
+import Post from '../components/Post';
+import { auth, db } from '../firebase/config';
 
 export default class Profile extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      usuario: null,   
+      posteos: [],     
+      loading: true
+    };
+  }
+
+  componentDidMount() {
+    db.collection('users')
+      .where('email', '==', auth.currentUser.email)
+      .onSnapshot(docs => {
+        let usuario = null;
+        docs.forEach(doc => {
+          usuario = { id: doc.id, data: doc.data() };
+        });
+        this.setState({ usuario, loading: false });
+      });
+
+    db.collection('posts')
+      .where('email', '==', auth.currentUser.email)
+      .onSnapshot(docs => {
+        const posteos = [];
+        docs.forEach(doc => {
+          posteos.push({ id: doc.id, data: doc.data() });
+        });
+        this.setState({ posteos });
+      });
+  }
+
+  logout = () => {
+    auth.signOut()
+      .then(() => this.props.navigation.navigate('Login'))
+      .catch(e => console.log(e));
+  };
+
+  deletePost = (id) => {
+    db.collection('posts').doc(id).delete()
+      .catch(e => console.log(e));
+  };
+
+  renderItem = ({ item }) => (
+    <View style={styles.postWrapper}>
+      <Post postData={item} />
+      <Pressable style={styles.deleteBtn} onPress={() => this.deletePost(item.id)}>
+        <Text style={styles.deleteText}>Borrar</Text>
+      </Pressable>
+    </View>
+  );
+
   render() {
     return (
-      <View style={styles.container}>
+      <React.Fragment>
+        <View style={styles.container}>
+          <Text style={styles.title}>Mi perfil</Text>
 
-        <View style={styles.header}>
-          <Text style={styles.title}>Bienvenido!!✨</Text>
-          <Text style={styles.subtitle}>Pantalla profile</Text>
+          {this.state.usuario ? (
+            <>
+              <Text style={styles.text}>Usuario: {this.state.usuario.data.username}</Text>
+              <Text style={styles.text}>Email: {this.state.usuario.data.email}</Text>
+            </>
+          ) : (
+            <Text style={styles.text}>Cargando perfil...</Text>
+          )}
+
+          <Text style={styles.title}>Últimos posteos</Text>
+          <FlatList
+            data={this.state.posteos}
+            keyExtractor={item => item.id}
+            renderItem={this.renderItem}
+            ListEmptyComponent={<Text style={styles.text}>Todavía no tenés posteos.</Text>}
+          />
         </View>
 
-      </View>
+        <Pressable onPress={this.logout} style={styles.logoutBtn}>
+          <Text style={styles.logoutText}>Desloguearse</Text>
+        </Pressable>
+      </React.Fragment>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1,
-    backgroundColor: "#F7EFE5",
-    justifyContent: "space-between",
+  container: { padding: 16 },
+  title: { color: 'black', fontWeight: 'bold', fontSize: 18, marginBottom: 8, marginTop: 8 },
+  text: { color: 'black', marginBottom: 4 },
+
+  postWrapper: { marginBottom: 12 },
+
+  deleteBtn: {
+    alignSelf: 'flex-start',
+    backgroundColor: '#8b5cf6',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    marginTop: 6
   },
-  header: {
-    paddingTop: 120,
-    alignItems: "center"
+  deleteText: { color: '#fff', fontWeight: 'bold' },
+
+  logoutBtn: {
+    alignSelf: 'center',
+    backgroundColor: '#dc2626',
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    marginVertical: 16
   },
-  title: {
-    fontSize: 28,
-    fontWeight: "700",
-    color: "#8C7A6B",
-    marginBottom: 8
-  },
-  subtitle: {
-    fontSize: 16,
-    color: "#B29E8C",
-    fontWeight: "500"
-  },
-  bottomButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#8C7A6B",
-    paddingVertical: 18,
-  },
-  buttonText: {
-    color: "#FFFFFF",
-    fontSize: 17,
-    fontWeight: "600"
-  }
+  logoutText: { color: '#fff', fontWeight: 'bold' }
 });
