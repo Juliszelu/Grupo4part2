@@ -25,9 +25,9 @@ export default function HomeMenu() {
         name="Nuevo post"
         component={NewPost}
         options={{
-            tabBarIcon: ({ color, size }) => (
-                <FontAwesome name="home" size={size} color={color} />
-            ),
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="home" size={size} color={color} />
+          ),
         }}
       />
 
@@ -35,9 +35,9 @@ export default function HomeMenu() {
         name="Profile"
         component={Profile}
         options={{
-            tabBarIcon: ({ color, size }) => (
-                <FontAwesome name="home" size={size} color={color} />
-            ),
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="home" size={size} color={color} />
+          ),
         }}
       />
     </Tab.Navigator>

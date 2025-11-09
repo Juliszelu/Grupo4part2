@@ -57,19 +57,19 @@ export default class Home extends Component {
 }
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
     backgroundColor: '#f9fafb',
     padding: 20,
   },
-  title:{
+  title: {
     fontSize: 22,
     fontWeight: 'bold',
     color: '#111827',
     textAlign: 'center',
     marginBottom: 16,
   },
-  empty:{
+  empty: {
     textAlign: 'center',
     color: '#6b7280',
     fontSize: 16,
