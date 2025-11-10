@@ -11,7 +11,8 @@ const Tab = createBottomTabNavigator();
 
 export default function HomeMenu() {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
+    <Tab.Navigator screenOptions={tabStyles}>
+      
       <Tab.Screen
         name="Home"
         component={HomeComment}
@@ -27,7 +28,7 @@ export default function HomeMenu() {
         component={NewPost}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="home" size={size} color={color} />
+            <FontAwesome name="edit" size={size} color={color} />
           ),
         }}
       />
@@ -37,10 +38,31 @@ export default function HomeMenu() {
         component={Profile}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="home" size={size} color={color} />
+            <FontAwesome name="user" size={size} color={color} />
           ),
         }}
       />
+
     </Tab.Navigator>
   );
 }
+const tabStyles = {
+  headerShown: false,
+
+  tabBarActiveTintColor: "#6A5747",   
+  tabBarInactiveTintColor: "#A49187", 
+
+  tabBarStyle: {
+    backgroundColor: "#FAF9F7",
+    borderTopColor: "#E5D7C8",
+    height: 60,
+    paddingBottom: 6,
+    paddingTop: 6,
+  },
+
+  tabBarLabelStyle: {
+    fontSize: 12,
+    fontWeight: "700",
+  },
+};
+
