@@ -70,9 +70,7 @@ export default class Profile extends Component {
                 <Post postData=
                 {item} profile={true}
                  />
-                <Pressable style={styles.deleteBtn} onPress={() => this.deletePost(item.id)}>
-                  <Text style={styles.deleteText}>Borrar</Text>
-                </Pressable>
+                
               </View>
             }
             ListEmptyComponent={<Text style={styles.text}>Todavía no tenés posteos.</Text>}
