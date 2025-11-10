@@ -13,10 +13,6 @@ export default class Post extends Component {
 
   componentDidMount() {
     if (
-      this.props.postData &&
-      this.props.postData.data &&
-      this.props.postData.data.likes &&
-      auth.currentUser &&
       this.props.postData.data.likes.includes(auth.currentUser.email)
     ) {
       this.setState({ like: true });
@@ -42,6 +38,9 @@ export default class Post extends Component {
       .then(() => this.setState({ like: false }))
       .catch(e => console.log(e));
   }
+  comentar(){
+    this.props.navegacion.navigate('Comentario',{data:this.props.postData}) 
+  }
 
   render() {
     const data = this.props.postData.data;
@@ -64,6 +63,12 @@ export default class Post extends Component {
               <Text style={styles.buttonText}>Dar like</Text>
             </Pressable>
           )}
+          {this.props.profile!= true
+          ? <Pressable style={styles.buttonLike} onPress={() => this.comentar()}>
+          <Text style={styles.buttonText}>Comentar</Text>
+        </Pressable>
+        : <View></View>
+        }
           <Text style={styles.likesCount}>{cantidad}</Text>
         </View>
       </View>

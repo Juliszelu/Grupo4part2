@@ -70,47 +70,64 @@ export default class Register extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#F7EFE5",
+        backgroundColor: "#FFFFFF",
         paddingTop: 100,
-        paddingHorizontal: 25,
+        paddingHorizontal: 24,
         alignItems: "center",
     },
+
     title: {
         fontSize: 26,
         fontWeight: "700",
         color: "#8C7A6B",
         marginBottom: 25
     },
+
     input: {
         width: "100%",
-        backgroundColor: "#E8DCCB",
-        borderRadius: 10,
-        padding: 12,
+        backgroundColor: "#FFFFFF",
+        borderRadius: 12,
+        padding: 14,
         fontSize: 16,
         marginVertical: 8,
-        color: "#8C7A6B"
+        color: "#5A524A",
+        borderWidth: 1,
+        borderColor: "#E4D8CC",
+        shadowColor: "#000",
+        shadowOpacity: 0.03,
+        shadowRadius: 3,
+        shadowOffset: { height: 1 },
     },
+
     button: {
         backgroundColor: "#8C7A6B",
-        padding: 14,
+        paddingVertical: 14,
         borderRadius: 12,
         width: "100%",
         alignItems: "center",
         marginTop: 15,
         flexDirection: "row",
-        justifyContent: "center"
+        justifyContent: "center",
+        shadowColor: "#000",
+        shadowOpacity: 0.08,
+        shadowRadius: 5,
+        shadowOffset: { height: 2 },
     },
+
     buttonText: {
         color: "#fff",
         fontSize: 17,
         fontWeight: "600",
     },
+
     backText: {
         marginTop: 15,
         color: "#8C7A6B",
         fontWeight: "500",
-        textDecorationLine: "underline"
+        textDecorationLine: "underline",
+        fontSize: 15,
     },
+
     error: {
         marginTop: 8,
         color: "#B34D4D",

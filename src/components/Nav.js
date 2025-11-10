@@ -13,10 +13,9 @@ export default class Nav extends Component {
 
     return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Home" component={HomeMenu} />
-        <Stack.Screen name="Comentario" component={Comentario} />
       </Stack.Navigator>
     );
   }

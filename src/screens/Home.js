@@ -47,7 +47,8 @@ export default class Home extends Component {
             data={this.state.posts}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <Post postData={item} />
+              <Post postData={item} navegacion={this.props.navigation}
+              />
             )}
           />
         )}
@@ -59,20 +60,31 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9fafb',
-    padding: 20,
+    backgroundColor: "#FFFFFF",   
+    paddingHorizontal: 18,
+    paddingTop: 20,
   },
+
   title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#111827',
-    textAlign: 'center',
+    fontSize: 24,
+    fontWeight: "700",
+    color: "#8C7A6B",            
+    textAlign: "center",
     marginBottom: 16,
   },
+
   empty: {
-    textAlign: 'center',
-    color: '#6b7280',
+    textAlign: "center",
+    color: "#8C7A6B",
     fontSize: 16,
     marginTop: 30,
   },
+
+  listContent: {
+    paddingBottom: 22,
+  },
+
+  separator: {
+    height: 12,
+  }
 });

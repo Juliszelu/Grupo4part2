@@ -21,7 +21,8 @@ export default class NewPost extends Component {
             email: auth.currentUser.email,
             texto: this.state.description,
             createdAt: Date.now(),
-            likes: []
+            likes: [], 
+            comentarios:[]
         })
             .then(() => {
                 this.setState({ description: '' });
@@ -59,48 +60,60 @@ export default class NewPost extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#F7EFE5",
+        backgroundColor: "#FFFFFF",     // fondo blanco como Home
         paddingTop: 100,
-        paddingHorizontal: 25,
-        alignItems: "center",
+        paddingHorizontal: 20,
     },
+
     title: {
-        fontSize: 26,
+        fontSize: 24,
         fontWeight: "700",
-        color: "#8C7A6B",
-        marginBottom: 25,
+        color: "#8C7A6B",              ]
         textAlign: "center",
+        marginBottom: 20,
     },
+
     input: {
         width: "100%",
-        backgroundColor: "#E8DCCB",
-        borderRadius: 10,
-        padding: 12,
+        backgroundColor: "#FFFFFF",     
+        borderRadius: 12,
+        padding: 14,
         fontSize: 16,
-        color: "#5E4E3A",
+        color: "#5A524A",
         borderWidth: 1,
-        borderColor: "#D3C3B3",
-        textAlignVertical: "top",
+        borderColor: "#E4D8CC",
         minHeight: 100,
-        marginBottom: 12,
+        textAlignVertical: "top",
+        marginBottom: 10,
+        shadowColor: "#000",
+        shadowOpacity: 0.03,
+        shadowRadius: 3,
+        shadowOffset: { height: 1 },
     },
+
     bottomButton: {
         backgroundColor: "#8C7A6B",
         paddingVertical: 14,
         borderRadius: 12,
-        width: "100%",
         alignItems: "center",
+        width: "100%",
         marginTop: 10,
+        shadowColor: "#000",
+        shadowOpacity: 0.08,
+        shadowRadius: 5,
+        shadowOffset: { height: 2 },
     },
+
     buttonText: {
         color: "#FFFFFF",
         fontSize: 17,
         fontWeight: "600",
     },
+
     error: {
         color: "#B34D4D",
         fontWeight: "600",
         textAlign: "center",
-        marginTop: 6,
+        marginBottom: 6,
     },
 });

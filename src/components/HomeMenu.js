@@ -5,6 +5,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Home from '../screens/Home';
 import Profile from '../screens/Profile';
 import NewPost from '../screens/NewPost';
+import HomeComment from './HomeComment';
 
 const Tab = createBottomTabNavigator();
 
@@ -13,7 +14,7 @@ export default function HomeMenu() {
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={HomeComment}
         options={{
           tabBarIcon: ({ color, size }) => (
             <FontAwesome name="home" size={size} color={color} />

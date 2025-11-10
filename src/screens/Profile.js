@@ -4,11 +4,11 @@ import Post from '../components/Post';
 import { auth, db } from '../firebase/config';
 
 export default class Profile extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      usuario: null,   
-      posteos: [],     
+      usuario: null,
+      posteos: [],
       loading: true
     };
   }
@@ -46,15 +46,6 @@ export default class Profile extends Component {
       .catch(e => console.log(e));
   };
 
-  renderItem = ({ item }) => (
-    <View style={styles.postWrapper}>
-      <Post postData={item} />
-      <Pressable style={styles.deleteBtn} onPress={() => this.deletePost(item.id)}>
-        <Text style={styles.deleteText}>Borrar</Text>
-      </Pressable>
-    </View>
-  );
-
   render() {
     return (
       <React.Fragment>
@@ -74,7 +65,16 @@ export default class Profile extends Component {
           <FlatList
             data={this.state.posteos}
             keyExtractor={item => item.id}
-            renderItem={this.renderItem}
+            renderItem={({ item }) =>
+              <View style={styles.postWrapper}>
+                <Post postData=
+                {item} profile={true}
+                 />
+                <Pressable style={styles.deleteBtn} onPress={() => this.deletePost(item.id)}>
+                  <Text style={styles.deleteText}>Borrar</Text>
+                </Pressable>
+              </View>
+            }
             ListEmptyComponent={<Text style={styles.text}>Todavía no tenés posteos.</Text>}
           />
         </View>
@@ -88,29 +88,72 @@ export default class Profile extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 16 },
-  title: { color: 'black', fontWeight: 'bold', fontSize: 18, marginBottom: 8, marginTop: 8 },
-  text: { color: 'black', marginBottom: 4 },
+  container: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+    paddingTop: 80,
+    paddingHorizontal: 20,
+  },
 
-  postWrapper: { marginBottom: 12 },
+  title: {
+    color: "#8C7A6B",
+    fontWeight: "700",
+    fontSize: 24,
+    marginBottom: 12,
+    textAlign: "center",
+  },
+
+  text: {
+    color: "#5A524A",
+    fontSize: 15,
+    marginBottom: 6,
+    textAlign: "center",
+  },
+
+  /* --- POSTS DEL PERFIL --- */
+  postWrapper: {
+    marginBottom: 16,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 12,
+    paddingBottom: 10,
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    shadowOffset: { height: 1 },
+  },
 
   deleteBtn: {
-    alignSelf: 'flex-start',
-    backgroundColor: '#8b5cf6',
+    alignSelf: "center",
+    backgroundColor: "#CBB8A0",      
     paddingVertical: 8,
-    paddingHorizontal: 12,
-    borderRadius: 8,
-    marginTop: 6
-  },
-  deleteText: { color: '#fff', fontWeight: 'bold' },
-
-  logoutBtn: {
-    alignSelf: 'center',
-    backgroundColor: '#dc2626',
-    paddingVertical: 10,
     paddingHorizontal: 16,
-    borderRadius: 8,
-    marginVertical: 16
+    borderRadius: 10,
+    marginTop: 8,
   },
-  logoutText: { color: '#fff', fontWeight: 'bold' }
+
+  deleteText: {
+    color: "#5A524A",
+    fontWeight: "600",
+    fontSize: 14,
+  },
+
+  /* --- BOTÓN LOGOUT --- */
+  logoutBtn: {
+    alignSelf: "center",
+    backgroundColor: "#8C7A6B",
+    paddingVertical: 12,
+    paddingHorizontal: 22,
+    borderRadius: 12,
+    marginVertical: 22,
+    shadowColor: "#000",
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    shadowOffset: { height: 2 },
+  },
+
+  logoutText: {
+    color: "#FFFFFF",
+    fontWeight: "700",
+    fontSize: 16,
+  },
 });

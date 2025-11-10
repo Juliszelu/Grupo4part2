@@ -73,7 +73,7 @@ export default class Login extends Component {
                     style={styles.bottomButton}
                     onPress={() => this.register()}
                 >
-                    <FontAwesome5 name="sign-in-alt" size={20} color="#fff" style={{ marginRight: 8 }} />
+                    <FontAwesome5 name="user-edit" size={20} color="#fff" style={{ marginRight: 8 }} />
                     <Text style={styles.buttonText}>Registrarse</Text>
                 </Pressable>
 
@@ -93,51 +93,74 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#F7EFE5",
-        justifyContent: "space-between",
+        backgroundColor: "#FFFFFF",
+        paddingTop: 100,
+        paddingHorizontal: 24,
     },
+
     header: {
-        paddingTop: 120,
         alignItems: "center",
+        marginBottom: 30,
     },
+
     title: {
         fontSize: 26,
-        fontWeight: "bold",
-        color: "#333",
+        fontWeight: "700",
+        color: "#8C7A6B",
+        marginBottom: 6,
     },
+
     subtitle: {
-        fontSize: 14,
-        color: "#555",
-        marginTop: 6,
+        fontSize: 15,
+        color: "#7A6E65",
+        textAlign: "center",
     },
+
     form: {
-        paddingHorizontal: 30,
+        width: "100%",
+        marginTop: 10,
     },
+
     input: {
-        backgroundColor: "#fff",
-        padding: 10,
-        marginVertical: 10,
-        borderRadius: 8,
-        borderColor: "#ddd",
+        backgroundColor: "#FFFFFF",
+        borderRadius: 12,
+        padding: 14,
+        fontSize: 16,
+        color: "#5A524A",
         borderWidth: 1,
+        borderColor: "#E4D8CC",
+        marginVertical: 10,
+        shadowColor: "#000",
+        shadowOpacity: 0.03,
+        shadowRadius: 3,
+        shadowOffset: { height: 1 },
     },
+
     bottomButton: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#A79277",
-        padding: 14,
-        margin: 25,
-        borderRadius: 10,
+        backgroundColor: "#8C7A6B",
+        paddingVertical: 14,
+        borderRadius: 12,
+        marginTop: 16,
+        shadowColor: "#000",
+        shadowOpacity: 0.08,
+        shadowRadius: 5,
+        shadowOffset: { height: 2 },
     },
+
     buttonText: {
-        color: "#fff",
-        fontSize: 16,
+        color: "#FFFFFF",
+        fontSize: 17,
         fontWeight: "600",
     },
+
     error: {
-        color: "red",
+        color: "#B34D4D",
+        fontWeight: "600",
         textAlign: "center",
-        marginTop: 5,
-    }
+        marginTop: 8,
+        fontSize: 14,
+    },
 });
