@@ -60,16 +60,26 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",   
+    backgroundColor: "#FAF9F7",   
     paddingHorizontal: 18,
-    paddingTop: 20,
+    paddingTop: 10,
   },
 
   title: {
-    fontSize: 24,
-    fontWeight: "700",
-    color: "#8C7A6B",            
+    fontSize: 26,
+    fontWeight: "800",
+    color: "#8C7A6B",
     textAlign: "center",
+    marginTop: 10,
+    marginBottom: 6,
+  },
+
+  underline: {
+    width: 140,
+    height: 3,
+    backgroundColor: "#D8C8BA",
+    borderRadius: 999,
+    alignSelf: "center",
     marginBottom: 16,
   },
 
@@ -81,10 +91,11 @@ const styles = StyleSheet.create({
   },
 
   listContent: {
-    paddingBottom: 22,
+    paddingBottom: 30,
   },
 
   separator: {
-    height: 12,
+    height: 14,
   }
 });
+

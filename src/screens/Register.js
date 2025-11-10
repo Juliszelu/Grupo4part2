@@ -70,7 +70,7 @@ export default class Register extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "#FAF9F7",
         paddingTop: 100,
         paddingHorizontal: 24,
         alignItems: "center",
@@ -93,10 +93,6 @@ const styles = StyleSheet.create({
         color: "#5A524A",
         borderWidth: 1,
         borderColor: "#E4D8CC",
-        shadowColor: "#000",
-        shadowOpacity: 0.03,
-        shadowRadius: 3,
-        shadowOffset: { height: 1 },
     },
 
     button: {
@@ -108,10 +104,6 @@ const styles = StyleSheet.create({
         marginTop: 15,
         flexDirection: "row",
         justifyContent: "center",
-        shadowColor: "#000",
-        shadowOpacity: 0.08,
-        shadowRadius: 5,
-        shadowOffset: { height: 2 },
     },
 
     buttonText: {

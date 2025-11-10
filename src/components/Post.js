@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
+import { FontAwesome5 } from '@expo/vector-icons';
+
 
 export default class Post extends Component {
   constructor(props) {
@@ -12,9 +14,7 @@ export default class Post extends Component {
   }
 
   componentDidMount() {
-    if (
-      this.props.postData.data.likes.includes(auth.currentUser.email)
-    ) {
+    if (this.props.postData.data.likes.includes(auth.currentUser.email)) {
       this.setState({ like: true });
     }
   }
@@ -38,8 +38,9 @@ export default class Post extends Component {
       .then(() => this.setState({ like: false }))
       .catch(e => console.log(e));
   }
-  comentar(){
-    this.props.navegacion.navigate('Comentario',{data:this.props.postData}) 
+
+  comentar() {
+    this.props.navegacion.navigate('Comentario', { data: this.props.postData });
   }
 
   render() {
@@ -54,67 +55,125 @@ export default class Post extends Component {
         <Text style={styles.description}>{texto}</Text>
 
         <View style={styles.footer}>
-          {this.state.like ? (
-            <Pressable style={styles.buttonLike} onPress={() => this.quitarLike()}>
-              <Text style={styles.buttonText}>Quitar like</Text>
+          <View style={styles.likeRow}>
+            {this.state.like ? (
+              <Pressable style={[styles.buttonBase, styles.buttonFilled]} onPress={() => this.quitarLike()}>
+                <Text style={[styles.buttonTextFilled]}>Quitar like</Text>
+              </Pressable>
+            ) : (
+              <Pressable style={[styles.buttonBase, styles.buttonFilled]} onPress={() => this.darLike()}>
+                <Text style={[styles.buttonTextFilled]}>Dar like</Text>
+              </Pressable>
+            )}
+            <Text style={styles.likesPill}>{cantidad}</Text>
+          </View>
+
+          {this.props.profile !== true ? (
+            <Pressable style={styles.commentButtonOutline} onPress={() => this.comentar()}>
+              <FontAwesome5 name="comment-dots" size={15} color="#7A6555" style={{ marginRight: 8 }} />
+              <Text style={styles.commentButtonOutlineText}>Comentar</Text>
             </Pressable>
-          ) : (
-            <Pressable style={styles.buttonLike} onPress={() => this.darLike()}>
-              <Text style={styles.buttonText}>Dar like</Text>
-            </Pressable>
-          )}
-          {this.props.profile!= true
-          ? <Pressable style={styles.buttonLike} onPress={() => this.comentar()}>
-          <Text style={styles.buttonText}>Comentar</Text>
-        </Pressable>
-        : <View></View>
-        }
-          <Text style={styles.likesCount}>{cantidad}</Text>
+
+          ) : null}
         </View>
       </View>
     );
   }
 }
 
-
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#fff',
-    borderColor: '#e5e7eb',
+    backgroundColor: '#FFFFFF',
+    borderColor: '#ECE7E1',
     borderWidth: 1,
-    borderRadius: 10,
-    padding: 12,
-    marginBottom: 12
+    borderRadius: 14,
+    padding: 16,
+    marginBottom: 14,
   },
   owner: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#111827',
-    marginBottom: 4
+    fontSize: 15,
+    fontWeight: '700',
+    color: '#2B2621',
+    marginBottom: 6,
   },
   description: {
-    fontSize: 16,
-    color: '#374151',
-    marginBottom: 10
+    fontSize: 15.5,
+    color: '#4B463F',
+    lineHeight: 22,
+    marginBottom: 14,
   },
+
   footer: {
+    flexDirection: 'column',
+    gap: 10,
+  },
+
+  likeRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
   },
-  buttonLike: {
+
+  // Botones base
+  buttonBase: {
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  // Estilo botón lleno (like)
+  buttonFilled: {
     backgroundColor: '#8C7A6B',
-    paddingVertical: 8,
-    paddingHorizontal: 15,
-    borderRadius: 8
   },
-  buttonText: {
-    color: '#fff',
-    fontWeight: '600'
+  buttonTextFilled: {
+    color: '#FFFFFF',
+    fontWeight: '700',
+    fontSize: 14.5,
+    letterSpacing: 0.2,
   },
-  likesCount: {
-    color: '#5E4E3A',
+
+  // Estilo botón contorno (comentar)
+  buttonOutline: {
+    backgroundColor: 'transparent',
+    borderWidth: 1.5,
+    borderColor: '#8C7A6B',
+  },
+  buttonTextOutline: {
+    color: '#8C7A6B',
+    fontWeight: '700',
+    fontSize: 14.5,
+  },
+
+  // contador al lado del like
+  likesPill: {
+    marginLeft: 10,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 999,
+    color: '#7B695A',
+    fontWeight: '700',
+    borderWidth: 1,
+    borderColor: '#E8DCD0',
+  },
+  commentButtonOutline: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#FAF9F7",     
+    paddingVertical: 14,
+    borderRadius: 12,
+    borderWidth: 1.6,
+    borderColor: "#B8A497",        
+    width: "100%",
+    marginTop: 12,
+  },
+
+  commentButtonOutlineText: {
+    color: "#7A6555",              
     fontSize: 16,
-    fontWeight: '600'
-  }
+    fontWeight: "700",
+  },
+
+
 });

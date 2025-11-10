@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { db, auth } from '../firebase/config';
 
 export default class NewPost extends Component {
@@ -21,8 +22,8 @@ export default class NewPost extends Component {
             email: auth.currentUser.email,
             texto: this.state.description,
             createdAt: Date.now(),
-            likes: [], 
-            comentarios:[]
+            likes: [],
+            comentarios: []
         })
             .then(() => {
                 this.setState({ description: '' });
@@ -50,7 +51,8 @@ export default class NewPost extends Component {
                 {this.state.error ? <Text style={styles.error} >{this.state.error}</Text> : null}
 
                 <Pressable style={styles.bottomButton} onPress={() => this.publicarPost()}>
-                    <Text style={styles.buttonText} >Publicar</Text>
+                    <FontAwesome5 name="paper-plane" size={18} color="#fff" style={{ marginRight: 8 }} />
+                    <Text style={styles.buttonText}>Publicar</Text>
                 </Pressable>
             </View>
         );
@@ -59,61 +61,55 @@ export default class NewPost extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: "#FFFFFF",     // fondo blanco como Home
-        paddingTop: 100,
-        paddingHorizontal: 20,
+      flex: 1,
+      backgroundColor: "#FAF9F7",
+      paddingTop: 90,
+      paddingHorizontal: 22,
     },
 
     title: {
-        fontSize: 24,
-        fontWeight: "700",
-        color: "#8C7A6B",
-        textAlign: "center",
-        marginBottom: 20,
+      fontSize: 28,
+      fontWeight: "800",
+      color: "#8C7A6B",
+      textAlign: "center",
+      marginBottom: 20,
     },
 
     input: {
-        width: "100%",
-        backgroundColor: "#FFFFFF",     
-        borderRadius: 12,
-        padding: 14,
-        fontSize: 16,
-        color: "#5A524A",
-        borderWidth: 1,
-        borderColor: "#E4D8CC",
-        minHeight: 100,
-        textAlignVertical: "top",
-        marginBottom: 10,
-        shadowColor: "#000",
-        shadowOpacity: 0.03,
-        shadowRadius: 3,
-        shadowOffset: { height: 1 },
+      width: "100%",
+      backgroundColor: "#FFFFFF",
+      borderRadius: 14,
+      padding: 16,
+      fontSize: 16,
+      color: "#52463E",
+      borderWidth: 1.4,
+      borderColor: "#E7D8C8",
+      minHeight: 110,
+      textAlignVertical: "top",
+      marginBottom: 12,
     },
 
     bottomButton: {
-        backgroundColor: "#8C7A6B",
-        paddingVertical: 14,
-        borderRadius: 12,
-        alignItems: "center",
-        width: "100%",
-        marginTop: 10,
-        shadowColor: "#000",
-        shadowOpacity: 0.08,
-        shadowRadius: 5,
-        shadowOffset: { height: 2 },
+      backgroundColor: "#8C7A6B",
+      paddingVertical: 15,
+      borderRadius: 14,
+      alignItems: "center",
+      marginTop: 12,
+      flexDirection: "row",
+      justifyContent: "center",
     },
 
     buttonText: {
-        color: "#FFFFFF",
-        fontSize: 17,
-        fontWeight: "600",
+      color: "#FFFFFF",
+      fontSize: 17,
+      fontWeight: "700",
     },
 
     error: {
-        color: "#B34D4D",
-        fontWeight: "600",
-        textAlign: "center",
-        marginBottom: 6,
+      color: "#C45757",
+      fontWeight: "700",
+      textAlign: "center",
+      marginBottom: 6,
+      marginTop: 4,
     },
 });
